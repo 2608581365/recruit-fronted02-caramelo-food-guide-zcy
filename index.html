@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      焦糖美食指南
+    </title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="logo" href="#top">
+        🍮
+        <b>
+          焦糖美食指南
+        </b>
+      </a>
+      <nav>
+        <a href="#foods">
+          美食地图
+        </a>
+        <a href="#add">
+          分享美食
+        </a>
+        <a href="#stats">
+          数据看板
+        </a>
+      </nav>
+      <button class="ghost-btn" id="clearDataBtn">
+        恢复示例数据
+      </button>
+    </header>
+    <main id="top">
+      <section class="hero wrap">
+        <div>
+          <p class="kicker">
+            CARAMELO FOOD GUIDE
+          </p>
+          <h1>
+            今天吃什么？
+            <br>
+            <em>
+              让大家少纠结一会儿。
+            </em>
+          </h1>
+          <p class="hero-text">
+            把群聊里散落的餐馆、食堂窗口和街边小吃，收进一个好找、好改、会记住你的美食清单。
+          </p>
+        </div>
+        <div class="hero-card">
+          <span>
+            🍜
+          </span>
+          <p>
+            今日推荐
+          </p>
+          <strong id="heroPick">
+            点击“随便吃点”
+          </strong>
+          <button id="randomBtn">
+            随便吃点 ↗
+          </button>
+        </div>
+      </section>
+      <section class="toolbar wrap" id="foods">
+        <div class="section-title">
+          <p class="kicker">
+            MY FOOD LIST
+          </p>
+          <h2>
+            大家吃过的，都在这里。
+          </h2>
+          <span id="resultCount">
+            0 道美食
+          </span>
+        </div>
+        <div class="controls">
+          <label class="search">
+            ⌕
+            <input id="searchInput" type="search" placeholder="搜索名称、地点或关键词">
+          </label>
+          <select id="typeFilter">
+            <option value="all">
+              全部类型
+            </option>
+          </select>
+          <select id="sortSelect">
+            <option value="newest">
+              最近添加
+            </option>
+            <option value="rating">
+              评分最高
+            </option>
+            <option value="priceLow">
+              价格最低
+            </option>
+            <option value="name">
+              名称排序
+            </option>
+          </select>
+        </div>
+        <div class="chip-row">
+          <button class="chip active" data-favorite="all">
+            全部
+          </button>
+          <button class="chip" data-favorite="favorite">
+            ♥ 我的收藏
+          </button>
+        </div>
+        <div class="food-grid" id="foodGrid">
+        </div>
+        <div class="empty-state" id="emptyState" hidden>
+          🥢
+          <h3>
+            还没有找到这道美食
+          </h3>
+          <p>
+            换个关键词，或分享一条新的美食信息吧。
+          </p>
+        </div>
+      </section>
+      <section class="add-section wrap" id="add">
+        <div>
+          <p class="kicker">
+            MAKE IT YOURS
+          </p>
+          <h2>
+            把下一顿饭
+            <br>
+            <em>
+              交给大家决定。
+            </em>
+          </h2>
+          <p>
+            知道一家值得推荐的小店？填几项关键信息，让它成为大家下次搜索时的答案。
+          </p>
+        </div>
+        <button class="primary-btn large" id="addCtaBtn">
+          ＋ 添加一条美食
+        </button>
+      </section>
+      <section class="stats wrap" id="stats">
+        <div>
+          <span>
+            已收录
+          </span>
+          <strong id="totalStat">
+            0
+          </strong>
+          <small>
+            条美食信息
+          </small>
+        </div>
+        <div>
+          <span>
+            平均评分
+          </span>
+          <strong id="ratingStat">
+            0.0
+          </strong>
+          <small>
+            来自大家的口味
+          </small>
+        </div>
+        <div>
+          <span>
+            收藏数
+          </span>
+          <strong id="favoriteStat">
+            0
+          </strong>
+          <small>
+            个私藏选择
+          </small>
+        </div>
+      </section>
+    </main>
+    <footer class="footer wrap">
+      焦糖美食指南
+      <span>
+        把“今天吃什么”变成“就它了”。
+      </span>
+    </footer>
+    <div class="modal-backdrop" id="modalBackdrop" hidden>
+      <section class="modal">
+        <button class="close-btn" id="closeModalBtn">
+          ×
+        </button>
+        <p class="kicker">
+          ADD TO THE LIST
+        </p>
+        <h2 id="modalTitle">
+          分享一条美食
+        </h2>
+        <form id="foodForm">
+          <input type="hidden" id="editId">
+          <label>
+            美食名称*
+            <input id="nameInput" required maxlength="40" placeholder="例如：巷口牛肉面">
+          </label>
+          <div class="form-row">
+            <label>
+              地点*
+              <input id="locationInput" required placeholder="例如：南门小吃街">
+            </label>
+            <label>
+              类型*
+              <select id="formType">
+                <option>
+                  餐馆
+                </option>
+                <option>
+                  食堂
+                </option>
+                <option>
+                  小吃
+                </option>
+                <option>
+                  咖啡甜品
+                </option>
+                <option>
+                  外卖
+                </option>
+              </select>
+            </label>
+          </div>
+          <div class="form-row">
+            <label>
+              人均价格（元）*
+              <input id="priceInput" required type="number" min="0" placeholder="25">
+            </label>
+            <label>
+              评分（1-5）*
+              <input id="ratingInput" required type="number" min="1" max="5" step="0.1" placeholder="4.5">
+            </label>
+          </div>
+          <label>
+            一句话简介
+            <textarea id="descInput" maxlength="100" placeholder="推荐理由、必点菜品或避雷提醒">
+            </textarea>
+          </label>
+          <p class="form-error" id="formError">
+          </p>
+          <button class="primary-btn submit-btn">
+            保存这条美食
+          </button>
+        </form>
+      </section>
+    </div>
+    <script src="script.js">
+    </script>
+  </body>
+</html>
